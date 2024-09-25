@@ -9,10 +9,17 @@
 - Un compte **GitHub**
 - **Ubuntu** (OS utilisé pour le développement)
 
-## Installation
+## Documentation
 
-1. Clonez ce dépôt :
+Vous trouverez la documentation complète du projet dans le dossier [docs](./docs). Voici une vue d'ensemble :
 
-   ```bash
-   git clone https://github.com/ton-utilisateur/BorderWatch.git
-   cd BorderWatch
+- [Introduction](./docs/introduction.md)
+- [Installation](./docs/installation.md)
+- [Architecture du Projet](./docs/architecture.md)
+- [Référence API](./docs/api_reference.md)
+- [Guide d'Utilisation](./docs/usage.md)
+
+## Prérequis
+
+...
+
