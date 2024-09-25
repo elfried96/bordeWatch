@@ -16,10 +16,6 @@ Vous trouverez la documentation complète du projet dans le dossier [docs](./doc
 - [Introduction](./docs/introduction.md)
 - [Installation](./docs/installation.md)
 - [Architecture du Projet](./docs/architecture.md)
-- [Référence API](./docs/api_reference.md)
 - [Guide d'Utilisation](./docs/usage.md)
 
-## Prérequis
-
-...
 
