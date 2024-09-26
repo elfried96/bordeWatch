@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <title>Border Watch</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+
+</head>
+<body>
+    <!-- <h1>Impoter L'image</h1>
+    <form method="POST" >
+        {% csrf_token %}
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit" style="color: rgb(241, 5, 5); border: rgb(243, 46, 11); border-radius: 0.5m;">Detecter l'objet </button>
+    </form> -->
+
+    <div class="container">
+        <!-- Formulaire pour uploader l'image -->
+        <form id="imageForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" id="fileInput" name="image" accept="image/*" hidden>
+            <div class="img-area" data-img="">
+                <i class='bx bxs-cloud-upload icon'></i>
+                <h3>Upload Image</h3>
+                <p>Image size must be less than <span>2MB</span></p>
+            </div>
+            <button type="button" class="select-image">Select Image</button>
+            <button type="submit" class="upload-image">Detect Object</button>
+        </form>
+    </div>
+
+    <script>
+        // Ouvrir le sélecteur de fichier lorsque l'utilisateur clique sur "Select Image"
+        document.querySelector('.select-image').addEventListener('click', function() {
+            document.getElementById('fileInput').click();
+        });
+
+        // Prévisualiser l'image sélectionnée
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file && file.size < 2 * 1024 * 1024) { // Limite de taille : 2MB
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('.img-area').style.backgroundImage = `url(${e.target.result})`;
+                    document.querySelector('.img-area').innerHTML = ''; // Supprime l'icône et le texte
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert('L\'image doit faire moins de 2MB');
+            }
+        });
+    </script>
+    <script src="{% static 'js/upload.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats de la Détection</title>
+</head>
+<body>
+    <h1>Résultats de la Détection</h1>
+
+    <h2>Image originale</h2>
+    <img src="{{ file_url }}" alt="Image originale" width="500">
+
+    <h2>Image avec détection d'objets</h2>
+    <img src="{{ detection_img }}" alt="Image détectée" width="500">
+
+    <a href="{% url 'upload' %}">Retour</a>
+</body>
+</html>
