@@ -14,6 +14,24 @@
     <h2>Image avec détection d'objets</h2>
     <img src="{{ detection_img }}" alt="Image détectée" width="500">
 
+    <h2>Objets détectés</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Objet</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for obj, count in class_counts.items %}
+            <tr>
+                <td>{{ obj }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
     <a href="{% url 'detect_objects' %}">Retour</a>
 </body>
 </html>

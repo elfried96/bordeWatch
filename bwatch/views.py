@@ -6,15 +6,17 @@ import cv2
 import os
 from pathlib import Path
 import uuid
+from collections import Counter
+
 
 model = YOLO('BorderWatch/yolov8s.pt')
+model = YOLO('BorderWatch/best(2).pt')
 
 def detect_objects(request):
     print("Request received: ", request)
-    print("Start processing the request.....................................................................................")
 
     if request.method == 'POST' and request.FILES.get('image'):
-        print('Image upload initiated.......................................................................................')
+        print('Image upload initiated...')
         
         # Récupérer l'image uploadée
         image = request.FILES['image']
@@ -29,11 +31,14 @@ def detect_objects(request):
         # Effectuer la détection
         img_path = fs.path(filename)
         print(f'Performing detection on image: {img_path}')
-        results = model(img_path)
+        results = model(img_path, conf=0.25)
         print(results)
 
         # Lire l'image avec OpenCV pour annoter les résultats
         image_cv = cv2.imread(img_path)
+
+        # Liste pour stocker les objets détectés
+        detected_classes = []
 
         # Dessiner les boîtes et les labels sur l'image
         for r in results:
@@ -41,6 +46,9 @@ def detect_objects(request):
                 # Obtenir la classe prédite et les coordonnées de la boîte
                 classe = int(box.cls[0])  # Classe prédite (label)
                 x1, y1, x2, y2 = map(int, box.xyxy[0])  # Coordonnées de la boîte englobante
+
+                # Ajouter la classe détectée à la liste
+                detected_classes.append(model.names[classe])
 
                 # Dessiner la boîte
                 cv2.rectangle(image_cv, (x1, y1), (x2, y2), (0, 255, 0), 2)
@@ -59,16 +67,19 @@ def detect_objects(request):
         detection_img_path = os.path.join(settings.MEDIA_URL, 'detections', annotated_filename)
         print(f'Detection image path: {detection_img_path}')
 
+        # Compter les objets détectés
+        class_counts = Counter(detected_classes)
+        print(f'Detected classes count: {class_counts}')  # Debug pour vérifier
+
         context = {
             'file_url': file_url,  # Image originale
-            'detection_img': detection_img_path  # Image avec objets détectés
+            'detection_img': detection_img_path,  # Image avec objets détectés
+            'class_counts': dict(class_counts)  # Conversion en dictionnaire pour le template
         }
 
-        print('Rendering the result template.................................................................................................')
+        print('Rendering the result template...')
         return render(request, 'bwatch/result.html', context)
     
-    print('No image uploaded or incorrect request method..........................................................................................')
+    print('No image uploaded or incorrect request method.')
     return render(request, 'bwatch/upload.html')
 
-"""def upload_image(request):
-    return render(request, 'bwatch/upload.html')"""
