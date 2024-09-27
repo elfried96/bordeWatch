@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from bwatch.views import detect_objects
+from bwatch.views import upload_image
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,4 +25,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('detect/', detect_objects, name='detect_objects'),
+    #path('upload/', upload_image, name='upload'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
