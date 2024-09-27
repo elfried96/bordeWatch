@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-    <title>Border Watch</title>
-    {% load static %}
+{% extends 'base.html' %}
 
-    <link rel="stylesheet" href="{% static 'css/upload.css' %}">
+{% block title %}
+    Border Watch
+{% endblock %}
 
-</head>
-<body>
-    <!-- <h1>Impoter L'image</h1>
-    <form method="POST" >
-        {% csrf_token %}
-        <input type="file" name="image" accept="image/*" required>
-        <button type="submit" style="color: rgb(241, 5, 5); border: rgb(243, 46, 11); border-radius: 0.5m;">Detecter l'objet </button>
-    </form> -->
-
+{% block content %}
     <div class="container">
+        <h1>Importer L'image</h1>
+
         <!-- Formulaire pour uploader l'image -->
         <form id="imageForm" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
@@ -54,7 +43,4 @@
             }
         });
     </script>
-    <script src="{% static 'js/upload.js' %}"></script>
-
-</body>
-</html>
+{% endblock %}
